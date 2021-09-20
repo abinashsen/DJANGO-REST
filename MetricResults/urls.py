@@ -14,21 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from resultsapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/get-results/', views.get_resultsapi, name='get_api'),
     path('api/post-results/', views.post_resultsapi, name='post_api'),
-    path('api/retrieve-results/<pk>/', views.retrieve_resultsapi, name='retrieve_api'),
-    path('api/put-results/<pk>/', views.put_resultsapi, name='put_api'),
-    path('api/delete-results/<pk>/', views.delete_resultsapi, name='delete_api'),
+    re_path('api/retrieve-results/(?P<pk>[0-9])/', views.retrieve_resultsapi, name='retrieve_api'),
+    re_path('api/put-results/(?P<pk>[0-9])/', views.put_resultsapi, name='put_api'),
+    re_path('api/delete-results/(?P<pk>[0-9])/', views.delete_resultsapi, name='delete_api'),
 ]
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('api/', views.ResultsApi.as_view(), name='api'),
-#     path('api/post-data', views.ResultsApi.as_view(), name='post_data'),
-#     path('api/<pk>/', views.GetResultsApi.as_view()),
-#
-# ]
